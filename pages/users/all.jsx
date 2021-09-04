@@ -3,7 +3,7 @@ import axios from 'axios'
 import Head from 'next/head'
 import Link from 'next/link'
 export const getStaticProps = async () => {
-  const res = await axios('http://localhost:3000/api/hello')
+  const res = await axios('http://localhost:3004/posts/')
   const data = res.data
   //console.log(data)
   return {

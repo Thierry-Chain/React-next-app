@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Box, Button, Text, Link, Flex } from '@chakra-ui/react'
 export const getStaticPaths = async () => {
-  const res = await axios('http://localhost:3000/api/hello')
+  const res = await axios('http://localhost:3004/posts/')
   const paths = res.data.map((user) => {
     return {
       params: { userId: user.id.toString() },
