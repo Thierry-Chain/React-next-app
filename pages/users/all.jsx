@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const getStaticProps = async () => {
   const res = await axios('http://localhost:3000/api/hello')
   const data = res.data
-  console.log(data)
+  //console.log(data)
   return {
     props: { list: data },
   }
