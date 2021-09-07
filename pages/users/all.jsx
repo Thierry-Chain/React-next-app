@@ -8,6 +8,7 @@ export const getStaticProps = async () => {
   //console.log(data)
   return {
     props: { list: data },
+    revalidate: 1,
   }
 }
 

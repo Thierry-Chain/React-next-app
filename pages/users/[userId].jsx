@@ -14,26 +14,38 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const userId = context.params.userId
   const res = await axios(`http://localhost:3004/posts/${userId}`)
-  const data = res.data
-  console.log(`building /users/${userId}`)
-  if (!data.id) {
+  const data = res?.data
+  console.log(`building /users/${userId} and data ${data.title}`)
+
+  if (!data?.title) {
     console.log('invalid route')
     return {
-      notFound: true,
+      redirect: {
+        destination: '/users/',
+        permanent: false,
+      },
     }
   }
+
   return {
     props: { user: data },
+    revalidate: 1,
   }
 }
 
 export default function User({ user }) {
   //console.log(user)
+
   const router = useRouter()
   if (router.isFallback) {
     console.log('Loading')
-    return <Skeleton height="100px" width="80%" />
+    return (
+      <Box p="4">
+        <Skeleton height="80px" width="80%" />
+      </Box>
+    )
   }
+
   return (
     <>
       {' '}
