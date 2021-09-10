@@ -21,7 +21,7 @@ export default function Navbar() {
           fontWeight="bold"
           color="white"
         >
-          Home
+          <a>Home</a>
         </Text>
       </Link>
       <Link passHref={true} href="/users/all">
@@ -36,7 +36,7 @@ export default function Navbar() {
           fontWeight="bold"
           color="white"
         >
-          Users
+          <a>Users</a>
         </Text>
       </Link>
     </Flex>
