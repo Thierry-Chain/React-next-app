@@ -2,13 +2,14 @@ import { Box, Heading, SimpleGrid, Text, Button } from '@chakra-ui/react'
 import axios from 'axios'
 import Head from 'next/head'
 import Link from 'next/link'
-export const getStaticProps = async () => {
+//export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await axios('http://localhost:3004/posts/')
   const data = res.data
   //console.log(data)
   return {
     props: { list: data },
-    revalidate: 1,
+    //revalidate: 1,
   }
 }
 
