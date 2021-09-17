@@ -9,6 +9,10 @@ import Head from 'next/head'
 
 
 import Image from 'next/image'
+//this is onother comment that i added in order to make a conflicts
+//this is onother comment that i added in order to make a conflicts
+
+//--------------------------------
 
 //this comment must couse conflicts
 //added new comment on trial
