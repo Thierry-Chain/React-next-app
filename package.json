@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "serve-json":"json-server --watch db.json --port 3004"
+    "serve-json": "json-server --watch db.json --port 3004"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.5",
@@ -17,7 +17,8 @@
     "framer-motion": "4",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-query": "^3.19.1"
   },
   "devDependencies": {
     "eslint": "7.32.0",
