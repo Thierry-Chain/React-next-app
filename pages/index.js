@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
-
-
+//this comment must couse conflicts
+//added new comment on trial
 
 
 
