@@ -11,10 +11,16 @@ import Image from 'next/image'
 //import styles from '../styles/Home.module.css'
 import dynamic from 'next/dynamic'
 import { Button, Box, SimpleGrid, Heading, Flex } from '@chakra-ui/react'
+import axios from 'axios'
 export default function Home() {
   const TestComp = dynamic(() => import('../components/Test'))
   const show = true
   console.log(TestComp)
+  const handleclick = async () => {
+    const data = { title: 'current', author: 'thierry' }
+    const res = await axios.post('http://localhost:3004/posts', data)
+    console.log(res)
+  }
   return (
     <Box my="6">
       <Head>
@@ -26,7 +32,7 @@ export default function Home() {
         Welcome
       </Heading>
       <Flex py="4">
-        <Button mx="auto" colorScheme="teal">
+        <Button onClick={handleclick} mx="auto" colorScheme="teal">
           Test
         </Button>
       </Flex>
