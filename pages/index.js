@@ -1,4 +1,13 @@
 import Head from 'next/head'
+
+
+
+
+
+
+
+
+
 import Image from 'next/image'
 
 //this comment must couse conflicts
