@@ -4,12 +4,7 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { Button, Box, SimpleGrid, Heading, Flex } from '@chakra-ui/react'
 export default function Home() {
-  const TestComp = dynamic(() => import('../components/Test')/*, {
-    ssr: false,
-    loading: () => {
-      <h1>Loading ......</h1>
-    },
-  }*/)
+  const TestComp = dynamic(() => import('../components/Test'))
   const show = true
   console.log(TestComp)
   return (
