@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
+//this comment must couse conflicts
+//added new comment on trial
+
 //import styles from '../styles/Home.module.css'
 import dynamic from 'next/dynamic'
 import { Button, Box, SimpleGrid, Heading, Flex } from '@chakra-ui/react'
