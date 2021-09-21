@@ -1,107 +1,25 @@
-import axios from 'axios'
 import { useRouter } from 'next/router'
-import { Box, Button, Text, Link, Flex, Skeleton } from '@chakra-ui/react'
-import { useState } from 'react'
 import { useQuery } from 'react-query'
-
-export default function User() {
+import { useEffect } from 'react'
+import axios from 'axios'
+function Details() {
   const router = useRouter()
-  const userIde = router.query.userId
-  console.log(userIde)
-
+  const userId = router.query.userId
+  //console.log(userId && `done->${userId}`)
   const fetcher = async () => {
     try {
-      const res = await axios(`http://localhost:3004/posts/${userIde}`)
-      const data = res.data
-      return { data, error: false }
+      const res = await axios(`http://localhost:3004/posts/${userId}`)
+      const myData = res?.data
+      console.log('fetcher logged', myData, 'id', userId ? userId : 'disagree')
+      return myData
     } catch (e) {
-      return {
-        error: true,
-      }
+      console.warn('error')
     }
   }
 
-  const { data: user } = useQuery('getSingleUser', fetcher)
-  console.warn('therefore', user)
-  /*
-  if (router.isFallback) {
-    console.log('Loading')
-    return (
-      <Box p="4">
-        <Skeleton height="80px" mx="auto" width="80%" />
-      </Box>
-    )
+  // const { data, status } = useQuery('getSingleUser', fetcher)
 
-  } 
-  console.log('user in component', user)
-  */
-
-  if (user && user.error) {
-    return <h2>Error occured !! oops</h2>
-  }
-
-  return <h2>all good occured</h2>
-  /*
-  return (
-    <>
-      {user?.title ? (
-        <Flex>
-          <Box
-            mx="auto"
-            w={['80%', '50%']}
-            bg="blackAlpha.100"
-            shadow="lg"
-            rounded="lg"
-            p="4"
-            _hover={{ shadow: '2xl', bg: 'gray.300' }}
-          >
-            <Text>Title: {user.title}</Text>
-            <Text>Author: {user.author}</Text>
-            <Link href={`/users/${user.id}`}>
-              <Button size="sm" mx="3" colorScheme="teal">
-                Edit
-              </Button>
-            </Link>
-            <Button size="sm" mx="3" colorScheme="pink">
-              Delete
-            </Button>
-          </Box>
-        </Flex>
-      ) : (
-        'Loading ....'
-      )}
-    </>
-  )*/
+  return <div>start</div>
 }
-
-/////////////////////////////////////////////////////////////
-/*
-export const getStaticPaths = async () => {
-  const res = await axios('http://localhost:3004/posts/')
-  const paths1 = res.data.map((user) => {
-    return {
-      params: { userId: user.id.toString() },
-    }
-  })
-  const paths = [paths1[0], paths1[1], paths1[2]]
-  return { paths, fallback: true }
-}
-
-export const getStaticProps = async (context) => {
-  const userId = context.params.userId
-  try {
-    const res = await fetcher(userId)
-    const data = res?.data
-    console.log('here we go', data)
-    return {
-      props: { userId },
-    }
-  } catch {
-    return {
-      notFound: true,
-    }
-  }
-
-}
-*/
-/////////////////////////////////////////////////////////////
+export default Details
+export const getStaticProps = (context) => {}
