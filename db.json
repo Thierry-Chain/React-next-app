@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": 9,
-      "title": "nasty-c",
-      "author": "is the best rapper"
-    },
-    {
-      "id": 20,
-      "title": "Item 20",
-      "author": "Thiery test  latest"
-    },
-    {
       "title": "polo g",
       "author": "epidermic",
       "id": 23
@@ -84,6 +74,11 @@
       "title": "toako",
       "author": "tuesdat",
       "id": 36
+    },
+    {
+      "title": "moon",
+      "author": "zebra",
+      "id": 37
     }
   ],
   "comments": [],
