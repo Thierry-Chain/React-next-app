@@ -11,7 +11,11 @@ import { queryClient } from '../_app'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useQuery } from 'react-query'
-//export const getStaticProps = async () => {
+export const getStaticProps = async () => {
+  const res = await axios('http://localhost:3004/posts/')
+  const data = res.data
+  return { props: { init: data }, revalidate: 1 }
+}
 const handleDelete = async (id) => {
   const res = await axios.delete(`http://localhost:3004/posts/${id}`)
   queryClient.invalidateQueries('getAllUsers')
@@ -24,8 +28,11 @@ export const fetcher = async () => {
   const data = res.data
   return data
 }
-export default function Users() {
-  const { data } = useQuery('getAllUsers', fetcher)
+export default function Users({ init }) {
+  console.log(init.slice(0, 5))
+  const { data } = useQuery('getAllUsers', fetcher, {
+    initialData: init.slice(0, 5),
+  })
 
   return (
     <>
