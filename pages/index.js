@@ -12,13 +12,15 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { Button, Box, SimpleGrid, Heading, Flex } from '@chakra-ui/react'
 import axios from 'axios'
+import { queryClient } from './_app'
 export default function Home() {
   const TestComp = dynamic(() => import('../components/Test'))
   const show = true
   console.log(TestComp)
   const handleclick = async () => {
-    const data = { title: 'current', author: 'thierry' }
+    const data = { title: 'polo g', author: 'epidermic' }
     const res = await axios.post('http://localhost:3004/posts', data)
+    queryClient.invalidateQueries('getBooks')
     console.log(res)
   }
   return (

@@ -1,69 +1,75 @@
-import axios from 'axios'
 import { useRouter } from 'next/router'
-import { Box, Button, Text, Link, Flex, Skeleton } from '@chakra-ui/react'
+import { useQuery } from 'react-query'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { Skeleton, Flex, Box, Text, Link, Button } from '@chakra-ui/react'
+
 export const getStaticPaths = async () => {
+  console.warn('one')
+
   const res = await axios('http://localhost:3004/posts/')
   const paths1 = res.data.map((user) => {
     return {
       params: { userId: user.id.toString() },
     }
   })
-  const paths = [paths1[0], paths1[1], paths1[2]]
+  const paths = paths1.slice(0, 10)
   return { paths, fallback: true }
 }
+
 export const getStaticProps = async (context) => {
+  console.warn('two')
   const userId = context.params.userId
-  /*
-  console.log(`building /users/${userId} and data ${data.title}`)
 
-  if (!data?.title) {
-    console.log('invalid route')
+  try {
+    const res = await axios(`http://localhost:3004/posts/${userId}`)
+    const user = res?.data
+    console.log('here we go', user)
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
+      props: { user },
+      revalidate: 1,
     }
-  }*/
-
-  return {
-    props: { userId },
+  } catch (e) {
+    //console.warn('error', e)
+    return {
+      notFound: true,
+    }
   }
 }
-/*
-const fetcher = async (userId) => {
-  const res = await axios(`http://localhost:3004/posts/${userId}`)
-  const data = res?.data
-  console.log(data)
+export const fetcher = async (id) => {
+  const res = await axios('http://localhost:3004/posts/' + id)
+  const data = res.data
+  console.log('Im called', data)
   return data
-} */
-export default function User({ userId }) {
-  const [user, setUser] = useState(null)
+}
 
-  useEffect(() => {
-    const fetcher = async () => {
-      const res = await axios(`http://localhost:3004/posts/${userId}`)
-      const data = res?.data
-      setUser(data)
-    }
-    fetcher()
-  }, [userId])
-
+function Details({ user }) {
   const router = useRouter()
+  //if (router.isFallback) {
+  //  console.log('check', user, router.asPath.replace('/users/', ''))
+  //}
+  const { data, status } = useQuery(
+    'getDetails',
+    () =>
+      router.isFallback
+        ? fetcher(router.asPath.replace('/users/', ''))
+        : fetcher(user.id),
+    {
+      initialData: user ? [user] : null,
+    },
+  )
+  console.log('Go', user, data, status)
   if (router.isFallback) {
-    console.log('Loading')
     return (
-      <Box p="4">
-        <Skeleton height="80px" width="80%" />
-      </Box>
+      <>
+        <h2>Please wait ....</h2>
+        <Skeleton height="100px" w="80%" mx="auto" />
+      </>
     )
   }
-  console.log({ user })
-
   return (
     <>
-      {user ? (
+      {data?.title ? (
         <Flex>
           <Box
             mx="auto"
@@ -74,9 +80,9 @@ export default function User({ userId }) {
             p="4"
             _hover={{ shadow: '2xl', bg: 'gray.300' }}
           >
-            <Text>Title: {user.title}</Text>
-            <Text>Author: {user.author}</Text>
-            <Link href={`/users/${user.id}`}>
+            <Text>Title: {data.title}</Text>
+            <Text>Author: {data.author}</Text>
+            <Link href={`/users/${data.id}`}>
               <Button size="sm" mx="3" colorScheme="teal">
                 Edit
               </Button>
@@ -87,8 +93,12 @@ export default function User({ userId }) {
           </Box>
         </Flex>
       ) : (
-        'Loading ....'
+        <>
+          <h2>Please wait for react query ....</h2>
+          <Skeleton height="100px" w="80%" mx="auto" />
+        </>
       )}
     </>
   )
 }
+export default Details
