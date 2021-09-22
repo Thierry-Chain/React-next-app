@@ -93,7 +93,10 @@ function Details({ user }) {
           </Box>
         </Flex>
       ) : (
-        'Loading ....'
+        <>
+          <h2>Please wait for react query ....</h2>
+          <Skeleton height="100px" w="80%" mx="auto" />
+        </>
       )}
     </>
   )
