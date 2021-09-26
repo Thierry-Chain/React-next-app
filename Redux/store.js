@@ -1,14 +1,16 @@
 import { createStore, combineReducers } from 'redux'
-
+import userReducer from './reducer'
 
 const rootReducer = combineReducers({
-    auth: null,
+    drive: userReducer,
     selected: null
 })
 const fetchDevTools =
     process.env.NODE_ENV === 'development'
-        ? window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
+        ? globalThis.__REDUX_DEVTOOLS_EXTENSION__ &&
+        globalThis.__REDUX_DEVTOOLS_EXTENSION__()
         : undefined
+//console.log('global', globalThis.window)
+//console.log(globalThis.localStorage)
 const store = createStore(rootReducer, fetchDevTools)
 export default store

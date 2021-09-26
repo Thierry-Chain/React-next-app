@@ -1,10 +1,20 @@
 import { Button, Input, Heading, Stack, Container, Flex } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { queryClient } from '../_app'
+import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const AddUser = () => {
+    const router = useRouter()
+    const auth = useSelector(state => state.drive.auth)
 
+    useEffect(() => {
+        if (!auth) {
+            router.replace('/')
+
+        }
+    }, [auth, router])
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const handleclick = async () => {
