@@ -15,6 +15,8 @@ import Link from 'next/link'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
 export const getStaticProps = async () => {
+  const secret = process.env.TOKEN_SECRET
+  console.log('secret', secret)
   const res = await axios('http://localhost:3004/posts/')
   const data = res.data
   return { props: { init: data }, revalidate: 1 }
@@ -50,6 +52,7 @@ export default function Users({ init }) {
   })
 
   const currentUser = searchKey ? filtered : users
+  console.log('public key', process.env.NEXT_PUBLIC_DB_KEY)
   return (
     <>
       <Heading size="md" textAlign="center">

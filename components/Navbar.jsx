@@ -20,7 +20,7 @@ export default function Navbar() {
   const { data } = useQuery('getBooks', fetcher)
   //console.log(data)
   return (
-    <Flex py="4" bg="gray.100" align="baseline">
+    <Flex overflowX={['scroll', 'unset']} py="4" bg="gray.100" align="baseline">
       <Avatar my="auto" mr="3" name="logo" src="/logo.jpg" />
       <Heading color="blue.800" fontWeight="bold">
         Next app
