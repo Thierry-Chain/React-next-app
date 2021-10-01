@@ -17,19 +17,19 @@ import { useState } from 'react'
 export const getStaticProps = async () => {
   const secret = process.env.TOKEN_SECRET
   console.log('secret', secret)
-  const res = await axios('http://localhost:3004/posts/')
+  const res = await axios('http://localhost:3000/api/posts/')
   const data = res.data
   return { props: { init: data }, revalidate: 1 }
 }
 const handleDelete = async (id) => {
-  const res = await axios.delete(`http://localhost:3004/posts/${id}`)
+  const res = await axios.delete(`http://localhost:3000/api/posts/${id}`)
   queryClient.invalidateQueries('getAllUsers')
   queryClient.invalidateQueries('getBooks')
   console.log(res)
 }
 
 export const fetcher = async () => {
-  const res = await axios('http://localhost:3004/posts/')
+  const res = await axios('http://localhost:3000/api/posts/')
   const data = res.data
   return data
 }

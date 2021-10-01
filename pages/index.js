@@ -22,7 +22,7 @@ export default function Home() {
   console.log(TestComp)
   const handleclick = async () => {
     const data = { title: 'polo g', author: 'epidermic' }
-    const res = await axios.post('http://localhost:3004/posts', data)
+    const res = await axios.post('http://localhost:3000/api/posts', data)
     queryClient.invalidateQueries('getBooks')
     console.log(res)
   }

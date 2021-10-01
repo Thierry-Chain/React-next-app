@@ -29,7 +29,7 @@ const AddUser = () => {
       return 0
     }
     const data = { title, author }
-    const res = await axios.post('http://localhost:3004/posts', data)
+    const res = await axios.post('http://localhost:3000/api/posts', data)
     queryClient.invalidateQueries('getBooks')
     console.log(res)
     setTitle('')

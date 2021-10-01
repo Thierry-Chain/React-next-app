@@ -7,7 +7,7 @@ import { Skeleton, Flex, Box, Text, Link, Button } from '@chakra-ui/react'
 export const getStaticPaths = async () => {
   console.warn('one')
 
-  const res = await axios('http://localhost:3004/posts/')
+  const res = await axios('http://localhost:3000/api/posts/')
   const paths1 = res.data.map((user) => {
     return {
       params: { userId: user.id.toString() },
@@ -22,7 +22,7 @@ export const getStaticProps = async (context) => {
   const userId = context.params.userId
 
   try {
-    const res = await axios(`http://localhost:3004/posts/${userId}`)
+    const res = await axios(`http://localhost:3000/api/posts/${userId}`)
     const user = res?.data
     console.log('here we go', user)
     return {
@@ -37,7 +37,7 @@ export const getStaticProps = async (context) => {
   }
 }
 export const fetcher = async (id) => {
-  const res = await axios('http://localhost:3004/posts/' + id)
+  const res = await axios('http://localhost:3000/api/posts/' + id)
   const data = res.data
   console.log('Im called', data)
   return data

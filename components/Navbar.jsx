@@ -12,9 +12,9 @@ import Link from 'next/link'
 import axios from 'axios'
 export default function Navbar() {
   const fetcher = async () => {
-    const res = await axios('http://localhost:3004/posts/')
+    const res = await axios('http://localhost:3000/api/posts/')
     const data = await res.data
-    //console.log('inside', data)
+    console.log('inside', data)
     return data.length
   }
   const { data } = useQuery('getBooks', fetcher)
